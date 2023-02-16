@@ -27,28 +27,28 @@ Based on https://www.pluralsight.com/courses/powershell-getting-started
 	* `Get-Host | Select-Object Version`
 	* `$PSVersionTable` 
 
-	* MULTILINE PS COMMANDS 
+	* Multiline PS commands 
 		* Contrast below under Scripts & ISE for how this works in ISE
 		`Get-Service | #{hit Shift-enter}`
 		`>> where ...`
 	
-	* NAMING CONVENTION OF COMMANDS
-		* VERB-NOUN
+	* Naming convention of all commands
+		* `VERB`-`NOUN`
 		* https://docs.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands?view=powershell-7.2 
 
-	# PIPELINING IS CRUCIAL 
-	# left to right execution, pipes output of lefter command to input to righter command 
-	# what is passed along is some object (use Get-Member to find methods on the type
+1. Pipelining is Crucial 
+	* left to right execution, in which PS pipes the output of the lefter command to the input to the righter command 
+	* what is passed along is some object (use Get-Member to find methods on the type
 	
-	# To count number of items:
-	> ... | Measure-Object
+	* To count number of items:
+	`... | Measure-Object`
 
-	# To display as a table:
-	> ... | FT # alias for Format-Table
+	* To display as a table:
+	`... | FT` (alias for `Format-Table`)
 
-	# To export as text or CSV file:
-	> ... | Out-File .\results.csv 
-	> ... | Export-CSV .\results.csv 
+	* To export as text or CSV file:
+	`... | Out-File .\results.csv` 
+	`... | Export-CSV .\results.csv` 
 
 
 	######################################################################################
