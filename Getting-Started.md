@@ -105,8 +105,8 @@ Based on https://www.pluralsight.com/courses/powershell-getting-started
 
 
 	######################################################################################
-	# USING Get-Member TO DISCOVER OTHER METHODS ON THE OUTPUT OF A COMMAND 
-	# tutor likes to represent objects as rows of a table whose columns are properties 
+1.  Using `Get-Member` to Discover other methods on the output of a command 
+	####### tutor likes to represent objects as rows of a table whose columns are properties 
 
 	> Get-Member # "gets properties & methods" of the PS Objects 
 	> Get-Alias -Definition Get-Member # -->> `gm` 
