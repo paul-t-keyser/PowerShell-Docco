@@ -53,39 +53,44 @@ Based on https://www.pluralsight.com/courses/powershell-getting-started
 
 	######################################################################################
 	####### USING REFLECTION TO EXPLORE AVAILABLE MEHODS
-	> Get-Service | where Status -Eq "Stopped" | Select-Object DisplayName,Status
-	> Get-Service | Where-Object -Property Status -Eq "Stopped" 
-	> Get-Alias -Definition Get-Service # -->> `gsv`
+1. Reflection
+	* Some Nouns
+	* `Get-Service | where Status -Eq "Stopped" | Select-Object DisplayName,Status`
+	* `Get-Service | Where-Object -Property Status -Eq "Stopped"` 
+	* `Get-Alias -Definition Get-Service` 
+		* result is `gsv`
 
-	> (Get-Command).count
+	* `(Get-Command).count` 
 
-	> Get-Alias -Definition GetCommand # -->> `gcm` 
+	* `Get-Alias -Definition GetCommand` 
+		* result is `gcm` 
 
-	> Get-Command -Name *IP*
-	> Get-Command -Name *IP* -Module Net*      # the -Module filters on the 'Source'
-	> Get-Command -Name *IP* -Module NetTCPIP  # very focussed list
-	> Get-Command -Verb Stop 
-	> Get-Command -CommandType Function | Measure-Object
+	* `Get-Command -Name *IP*`
+	* `Get-Command -Name *IP* -Module Net*`      // the -Module filters on the 'Source'
+	* `Get-Command -Name *IP* -Module NetTCPIP`  // very focussed list
+	* `Get-Command -Verb Stop` 
+	* `Get-Command -CommandType Function | Measure-Object`
 	
-	https://docs.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands?view=powershell-7.2 
-	> Get-Verb # returns list of all known verbs in the PS `Verb-Noun` formalism 
-	> Get-Verb -Verb Set 
-	> Get-Verb -Verb Set | Format-List 
-	> Get-Verb -Group Security # ooops v7.2 only 
+	* Some Verbs
+		* https://docs.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands?view=powershell-7.2 
+	* `Get-Verb // returns list of all known verbs in the PS `Verb-Noun` formalism 
+	* `Get-Verb -Verb Set 
+	* `Get-Verb -Verb Set | Format-List 
+	* `Get-Verb -Group Security # ooops v7.2 only 
 	
-	> Get-Alias # aliases for command-names 
-	> Get-Alias -Definition Get-Alias # -->> `gal` 
-	> Get-Alias -Name <short> # gets expansion from short-name 
-	> Get-Alias -Definition <some piece of the full name> 
+	* `Get-Alias # aliases for command-names 
+	* `Get-Alias -Definition Get-Alias # -->> `gal` 
+	* `Get-Alias -Name <short> # gets expansion from short-name 
+	* `Get-Alias -Definition <some piece of the full name> 
 	
-	> Get-History # retieves list of *commands* (not outputs) from current session 
-	> Invoke-History -Id <NN> # reruns the NN'th command in the history 
-	> Start-Transcript -Path <filename> -Append # saves *everything* in the console including output & errors 
-	> Stop-Transcript 
+	* `Get-History # retieves list of *commands* (not outputs) from current session 
+	* `Invoke-History -Id <NN> # reruns the NN'th command in the history 
+	* `Start-Transcript -Path <filename> -Append # saves *everything* in the console including output & errors 
+	* `Stop-Transcript 
 
 
 	######################################################################################
-	# USING THE HELP SYSTEM TO EXPLORE AVAILABLE METHODS
+	# USING THE HELP SYSTE* `TO EXPLORE AVAILABLE METHODS
 	# RUN AS ADMIN!
 
 	> Update-Help 
