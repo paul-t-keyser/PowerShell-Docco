@@ -51,9 +51,7 @@ Based on https://www.pluralsight.com/courses/powershell-getting-started
 	`... | Export-CSV .\results.csv` 
 
 
-	######################################################################################
-	####### USING REFLECTION TO EXPLORE AVAILABLE MEHODS
-1. Reflection
+1. Using Reflection to Explore Available Methods
 	* Some Nouns
 	* `Get-Service | where Status -Eq "Stopped" | Select-Object DisplayName,Status`
 	* `Get-Service | Where-Object -Property Status -Eq "Stopped"` 
@@ -73,45 +71,45 @@ Based on https://www.pluralsight.com/courses/powershell-getting-started
 	
 	* Some Verbs
 		* https://docs.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands?view=powershell-7.2 
-	* `Get-Verb // returns list of all known verbs in the PS `Verb-Noun` formalism 
-	* `Get-Verb -Verb Set 
-	* `Get-Verb -Verb Set | Format-List 
-	* `Get-Verb -Group Security # ooops v7.2 only 
+	* `Get-Verb 
+		* Returns list of all known verbs in the PS `Verb-Noun` formalism 
+	* `Get-Verb -Verb Set` 
+	* `Get-Verb -Verb Set | Format-List` 
+	* `Get-Verb -Group Security` # ooops v7.2 only 
 	
-	* `Get-Alias # aliases for command-names 
-	* `Get-Alias -Definition Get-Alias # -->> `gal` 
-	* `Get-Alias -Name <short> # gets expansion from short-name 
-	* `Get-Alias -Definition <some piece of the full name> 
+	* `Get-Alias` # aliases for command-names 
+	* `Get-Alias -Definition Get-Alias` 
+		* result is `gal` 
+	* `Get-Alias -Name <short>` # gets expansion from short-name 
+	* `Get-Alias -Definition <some piece of the full name>` 
 	
-	* `Get-History # retieves list of *commands* (not outputs) from current session 
-	* `Invoke-History -Id <NN> # reruns the NN'th command in the history 
-	* `Start-Transcript -Path <filename> -Append # saves *everything* in the console including output & errors 
-	* `Stop-Transcript 
+	* `Get-History` # retieves list of *commands* (not outputs) from current session 
+	* `Invoke-History -Id <NN>` # reruns the NN'th command in the history 
+	* `Start-Transcript -Path <filename> -Append` # saves *everything* in the console including output & errors 
+	* `Stop-Transcript` 
+
+1. Using the Help System to Explore Available Methods
+	* Must run as Admin!
+
+	* `Update-Help` 
+	* `Get-Help <command-name>`
+		* can append `-Detailed` 
+		* can append `-Examples` // can be useful for seeing what can be done 
+		* appending the switch `-Online` opens the relevant MS docco webpage 
+		* if the `<command-name>` matches multiple cmds, get a summary table 
+		* the alias `Help` abbreviates the ouput and pipes it to "more": `| more`
+	* `Get-Alias -Definition Get-Help` // NONE
+
+	* `help about_*` // gives list of files
+	* `help about_* | Measure-Object` // says there are 141 of them 
+	
+	* positional parameters : sometimes possible to omit parameter names
+	* abbreviated parameters : sometimes possible to shorten parameter names 
 
 
 	######################################################################################
-	# USING THE HELP SYSTE* `TO EXPLORE AVAILABLE METHODS
-	# RUN AS ADMIN!
-
-	> Update-Help 
-	> Get-Help <command-name>
-	> # can append -Detailed 
-	> # can append -Examples >>> useful for seeing what can be done 
-	> # the switch -Online   >>> opens the relevant MS docco webpage 
-	> # if cmd-name matches multiple cmds, get a summary table 
-	> # note also alias `Help` -> abbreviates and "| more"
-	> Get-Alias -Definition Get-Help # -->> NONE
-
-	> help about_* # -->> list of files
-	> help about_* | Measure-Object # says there are 141 of them 
-	
-	# positional parameters : sometimes possible to omit parameter names
-	# abbreviated parameters : sometimes possible to shorten parameter names 
-
-
-	######################################################################################
-1.  Using `Get-Member` to Discover other methods on the output of a command 
-	####### tutor likes to represent objects as rows of a table whose columns are properties 
+	# USING Get-Member TO DISCOVER OTHER METHODS ON THE OUTPUT OF A COMMAND 
+	# tutor likes to represent objects as rows of a table whose columns are properties 
 
 	> Get-Member # "gets properties & methods" of the PS Objects 
 	> Get-Alias -Definition Get-Member # -->> `gm` 
@@ -188,12 +186,12 @@ Based on https://www.pluralsight.com/courses/powershell-getting-started
 
 name MachineName              UserName            TimeGenerated          Message
 ---- -----------              --------            -------------          -------
-						4/18/2022 4:56:08 PM   The process C:\WINDOWS\servicing\TrustedInstaller.exe ($MACHINE_NAME) has initiated the restart of computer $MACHINE_NAME ...
-						4/18/2022 4:45:08 PM   The process C:\Windows\System32\RuntimeBroker.exe ($MACHINE_NAME) has initiated the restart of computer $MACHINE_NAME ...
-						3/23/2022 12:17:15 PM  The process C:\Windows\System32\RuntimeBroker.exe ($MACHINE_NAME) has initiated the restart of computer $MACHINE_NAME ...
-						2/7/2022 9:29:47 AM    The process C:\Windows\explorer.exe ($MACHINE_NAME) has initiated the restart of computer $MACHINE_NAME ...
-						12/14/2021 10:06:02 AM The process C:\WINDOWS\system32\winlogon.exe ($MACHINE_NAME) has initiated the restart of computer $MACHINE_NAME ...
-						12/3/2021 9:36:17 AM   The process C:\WINDOWS\system32\SlideToShutDown.exe ($MACHINE_NAME) has initiated the power off of computer $MACHINE_NAME on...
+                                                4/18/2022 4:56:08 PM   The process C:\WINDOWS\servicing\TrustedInstaller.exe ($MACHINE_NAME) has initiated the restart of computer $MACHINE_NAME on...
+                                                4/18/2022 4:45:08 PM   The process C:\Windows\System32\RuntimeBroker.exe ($MACHINE_NAME) has initiated the restart of computer $MACHINE_NAME on beh...
+                                                3/23/2022 12:17:15 PM  The process C:\Windows\System32\RuntimeBroker.exe ($MACHINE_NAME) has initiated the restart of computer $MACHINE_NAME on beh...
+                                                2/7/2022 9:29:47 AM    The process C:\Windows\explorer.exe ($MACHINE_NAME) has initiated the restart of computer $MACHINE_NAME on behalf of user ...
+                                                12/14/2021 10:06:02 AM The process C:\WINDOWS\system32\winlogon.exe ($MACHINE_NAME) has initiated the restart of computer $MACHINE_NAME on behalf of ...
+                                                12/3/2021 9:36:17 AM   The process C:\WINDOWS\system32\SlideToShutDown.exe ($MACHINE_NAME) has initiated the power off of computer $MACHINE_NAME on...
 
 	...
 
