@@ -5,9 +5,9 @@ Based on https://www.pluralsight.com/courses/powershell-getting-started
 ## Implementations of PS
 * Visual Studio "Code" runs PS 
 * The PowerShell "ISE" also recommended 
-* Can also use: 
-	* Windows Server Manager 
-	* Windows Admin Center -- integrates with Win Azure 
+	* Can also use: 
+		* Windows Server Manager 
+		* Windows Admin Center -- integrates with Win Azure 
 
 * PS is based on .NET Standard and no further development ("feature complete") 
 
@@ -71,21 +71,21 @@ Based on https://www.pluralsight.com/courses/powershell-getting-started
 	
 	* Some Verbs
 		* https://docs.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands?view=powershell-7.2 
-	* `Get-Verb 
+	* `Get-Verb` 
 		* Returns list of all known verbs in the PS `Verb-Noun` formalism 
 	* `Get-Verb -Verb Set` 
 	* `Get-Verb -Verb Set | Format-List` 
-	* `Get-Verb -Group Security` # ooops v7.2 only 
+	* `Get-Verb -Group Security` 	// ooops v7.2 only 
 	
 	* `Get-Alias` # aliases for command-names 
 	* `Get-Alias -Definition Get-Alias` 
 		* result is `gal` 
-	* `Get-Alias -Name <short>` # gets expansion from short-name 
+	* `Get-Alias -Name <short>` 	// gets expansion from short-name 
 	* `Get-Alias -Definition <some piece of the full name>` 
 	
-	* `Get-History` # retieves list of *commands* (not outputs) from current session 
-	* `Invoke-History -Id <NN>` # reruns the NN'th command in the history 
-	* `Start-Transcript -Path <filename> -Append` # saves *everything* in the console including output & errors 
+	* `Get-History` 		// retieves list of *commands* (not outputs) from current session 
+	* `Invoke-History -Id <NN>` 	// reruns the NN'th command in the history 
+	* `Start-Transcript -Path <filename> -Append` 		// saves *everything* in the console including output & errors 
 	* `Stop-Transcript` 
 
 1. Using the Help System to Explore Available Methods
@@ -94,11 +94,11 @@ Based on https://www.pluralsight.com/courses/powershell-getting-started
 	* `Update-Help` 
 	* `Get-Help <command-name>`
 		* can append `-Detailed` 
-		* can append `-Examples` // can be useful for seeing what can be done 
+		* can append `-Examples` 	// can be useful for seeing what can be done 
 		* appending the switch `-Online` opens the relevant MS docco webpage 
 		* if the `<command-name>` matches multiple cmds, get a summary table 
 		* the alias `Help` abbreviates the ouput and pipes it to "more": `| more`
-	* `Get-Alias -Definition Get-Help` // NONE
+	* `Get-Alias -Definition Get-Help` 	// NONE
 
 	* `help about_*` // gives list of files
 	* `help about_* | Measure-Object` // says there are 141 of them 
