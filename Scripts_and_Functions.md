@@ -1,9 +1,9 @@
 # Control-Flow
 
 ## Some Syntax
-* the switch() {} allows multiple evaluations in the ()'s and the values of the cases are evaluated at run-time
+* the `switch() {}` allows multiple evaluations in the ()'s and the values of the cases are evaluated at run-time
 * the `[DateTime]$var` is equivalent to: `$var -as [DateTime]` 
-* the $list ForEach-Object { ... $PSItem ...}  (where $PSItem is "automatic") is equivalent to; foreach ($item in $list) { ... $item ...}  
+* the `$list ForEach-Object { ... $PSItem ...}`  (where `$PSItem` is "automatic") is equivalent to: `foreach ($item in $list) { ... $item ...}`  
 * to create Hashtable:  `$htempty = @{} ; $ht = @{Key1 = "Value", "Key2" = "Value2"}` ; $ht.keys and $ht.values, etc. 
 * to create an ordered Hashtable, `$ht = [ordered]@{Key1 = "Value", "Key2" = "Value2"}`
 * the `-is` and `-isnot` operators for types 
@@ -45,8 +45,8 @@ Foreach ($svc in $svcs) { ... }
 
 ## Basic Stuff
 * edit and run scripts from Visual Studio Code 
-* pass "arguments" ( rather than parameters ) to a function, and inside use syntax like this: 
-  * `$($args[0])` to access the array of args. 
+* pass "arguments" ( rather than parameters ) to a function, and to access the array of args inside, use syntax like this: 
+  * `$($args[0])`
 * given a user-composed function `Do-Foo([String]$item)`, call `Do-Foo -item "whatever"` 
 
 * use this syntax to define a parameter called 'name', with a defined set of options (tab-completeable):
