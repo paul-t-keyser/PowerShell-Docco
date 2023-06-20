@@ -1,13 +1,20 @@
-# Basic Commands and Concepts
+# Table of Contents
+1. [Basic Commands and Concepts](#basic-commands-and-concepts)
+1. [First set of basic commands](#first-set-of-basic-commands)
+1. [Pipelining is Crucial](#pipelining-is-crucial)
+1. [Using Reflection to Explore Available Methods](#using-reflection-to-explore-available-methods)
+2. [Using the Help System to Explore Available Methods](#using-the-help-system-to-explore-available-methods)
+
+## Basic Commands and Concepts
 
 Based on https://www.pluralsight.com/courses/powershell-getting-started 
 
-## Implementations of PS
+### Implementations of PS
 * Visual Studio "Code" runs PS 
 * The PowerShell "ISE" also recommended 
-	* Can also use: 
-		* Windows Server Manager 
-		* Windows Admin Center -- integrates with Win Azure 
+* Can also use: 
+	* Windows Server Manager 
+	* Windows Admin Center -- integrates with Win Azure 
 
 * PS is based on .NET Standard and no further development ("feature complete") 
 
@@ -16,43 +23,42 @@ Based on https://www.pluralsight.com/courses/powershell-getting-started
 
 * *MAY* need v7.2 for Azure DevOps 
 
-	*	get it from https://github.com/PowerShell/Powershell ?
+	* get it from https://github.com/PowerShell/Powershell ?
 	
-	*	using https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2 ?
+	* using https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2 ?
 
-	*	download RSAT : https://docs.microsoft.com/en-us/troubleshoot/windows-server/system-management-components/remote-server-administration-tools 
+	* download RSAT : https://docs.microsoft.com/en-us/troubleshoot/windows-server/system-management-components/remote-server-administration-tools 
 
 
-# 1. First set of basic commands
-	* `Get-Host | Select-Object Version`
-	* `$PSVersionTable` 
+## First set of basic commands
+* `Get-Host | Select-Object Version`
+* `$PSVersionTable` 
 
-	* Multiline PS commands 
-		* Contrast below under Scripts & ISE for how this works in ISE
-		`Get-Service | #{hit Shift-enter}`
-		`>> where ...`
+* Multiline PS commands 
+* Contrast below under Scripts & ISE for how this works in ISE
+	* `Get-Service | #{hit Shift-enter}`
+	* `>> where ...`
+
+* Naming convention of all commands
+	* `VERB`-`NOUN`
+	* https://docs.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands?view=powershell-7.2 
+
+## Pipelining is Crucial 
+* left to right execution, in which PS pipes the output of the lefter command to the input to the righter command 
+* what is passed along is some object (use Get-Member to find methods on the type
 	
-	* Naming convention of all commands
-		* `VERB`-`NOUN`
-		* https://docs.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands?view=powershell-7.2 
+* To count number of items:
+	* `... | Measure-Object`
 
-# 1. Pipelining is Crucial 
-	* left to right execution, in which PS pipes the output of the lefter command to the input to the righter command 
-	* what is passed along is some object (use Get-Member to find methods on the type
-	
-	* To count number of items:
-	`... | Measure-Object`
+* To display as a table:
+	* `... | FT` (alias for `Format-Table`)
 
-	* To display as a table:
-	`... | FT` (alias for `Format-Table`)
+* To export as text or CSV file:
+	* `... | Out-File .\results.csv` 
+	* `... | Export-CSV .\results.csv` 
 
-	* To export as text or CSV file:
-	`... | Out-File .\results.csv` 
-	`... | Export-CSV .\results.csv` 
-
-
-# 1. Using Reflection to Explore Available Methods
-	* Some Nouns
+## Using Reflection to Explore Available Methods
+* Some Nouns
 	* `Get-Service | where Status -Eq "Stopped" | Select-Object DisplayName,Status`
 	* `Get-Service | Where-Object -Property Status -Eq "Stopped"` 
 	* `Get-Alias -Definition Get-Service` 
@@ -68,9 +74,9 @@ Based on https://www.pluralsight.com/courses/powershell-getting-started
 	* `Get-Command -Name *IP* -Module NetTCPIP`  // very focussed list
 	* `Get-Command -Verb Stop` 
 	* `Get-Command -CommandType Function | Measure-Object`
-	
-	* Some Verbs
-		* https://docs.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands?view=powershell-7.2 
+
+* Some Verbs
+	* https://docs.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands?view=powershell-7.2 
 	* `Get-Verb` 
 		* Returns list of all known verbs in the PS `Verb-Noun` formalism 
 	* `Get-Verb -Verb Set` 
@@ -88,25 +94,24 @@ Based on https://www.pluralsight.com/courses/powershell-getting-started
 	* `Start-Transcript -Path <filename> -Append` 		// saves *everything* in the console including output & errors 
 	* `Stop-Transcript` 
 
-# 1. Using the Help System to Explore Available Methods
-	* Must run as Admin!
+## Using the Help System to Explore Available Methods
+* Must run as Admin!
 
-	* `Update-Help` 
-	* `Get-Help <command-name>`
-		* can append `-Detailed` 
-		* can append `-Examples` 	// can be useful for seeing what can be done 
-		* appending the switch `-Online` opens the relevant MS docco webpage 
-		* if the `<command-name>` matches multiple cmds, get a summary table 
-		* the alias `Help` abbreviates the ouput and pipes it to "more": `| more`
-	* `Get-Alias -Definition Get-Help` 	// NONE
-
+* `Update-Help` 
+* `Get-Help <command-name>`
+	* can append `-Detailed` 
+	* can append `-Examples` 	// can be useful for seeing what can be done 
+	* appending the switch `-Online` opens the relevant MS docco webpage 
+	* if the `<command-name>` matches multiple cmds, get a summary table 
+	* the alias `Help` abbreviates the ouput and pipes it to "more": `| more`
+* `Get-Alias -Definition Get-Help` 	// NONE
 	* `help about_*` // gives list of files
 	* `help about_* | Measure-Object` // says there are 141 of them 
 	
 	* positional parameters : sometimes possible to omit parameter names
 	* abbreviated parameters : sometimes possible to shorten parameter names 
 
- # 1. USING Get-Member to Discover other Methods on the Output of a Command 
+# 1. USING Get-Member to Discover other Methods on the Output of a Command 
  	* PS likes to represent objects as rows of a table whose columns are properties 
 
 	* `Get-Member`
