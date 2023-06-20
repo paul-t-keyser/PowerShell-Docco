@@ -23,7 +23,7 @@ Based on https://www.pluralsight.com/courses/powershell-getting-started
 	*	download RSAT : https://docs.microsoft.com/en-us/troubleshoot/windows-server/system-management-components/remote-server-administration-tools 
 
 
-1. First set of basic commands
+# 1. First set of basic commands
 	* `Get-Host | Select-Object Version`
 	* `$PSVersionTable` 
 
@@ -36,7 +36,7 @@ Based on https://www.pluralsight.com/courses/powershell-getting-started
 		* `VERB`-`NOUN`
 		* https://docs.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands?view=powershell-7.2 
 
-1. Pipelining is Crucial 
+# 1. Pipelining is Crucial 
 	* left to right execution, in which PS pipes the output of the lefter command to the input to the righter command 
 	* what is passed along is some object (use Get-Member to find methods on the type
 	
@@ -51,7 +51,7 @@ Based on https://www.pluralsight.com/courses/powershell-getting-started
 	`... | Export-CSV .\results.csv` 
 
 
-1. Using Reflection to Explore Available Methods
+# 1. Using Reflection to Explore Available Methods
 	* Some Nouns
 	* `Get-Service | where Status -Eq "Stopped" | Select-Object DisplayName,Status`
 	* `Get-Service | Where-Object -Property Status -Eq "Stopped"` 
@@ -88,7 +88,7 @@ Based on https://www.pluralsight.com/courses/powershell-getting-started
 	* `Start-Transcript -Path <filename> -Append` 		// saves *everything* in the console including output & errors 
 	* `Stop-Transcript` 
 
-1. Using the Help System to Explore Available Methods
+# 1. Using the Help System to Explore Available Methods
 	* Must run as Admin!
 
 	* `Update-Help` 
@@ -106,30 +106,31 @@ Based on https://www.pluralsight.com/courses/powershell-getting-started
 	* positional parameters : sometimes possible to omit parameter names
 	* abbreviated parameters : sometimes possible to shorten parameter names 
 
+ # 1. USING Get-Member to Discover other Methods on the Output of a Command 
+ 	* PS likes to represent objects as rows of a table whose columns are properties 
 
-	######################################################################################
-	# USING Get-Member TO DISCOVER OTHER METHODS ON THE OUTPUT OF A COMMAND 
-	# tutor likes to represent objects as rows of a table whose columns are properties 
-
-	> Get-Member # "gets properties & methods" of the PS Objects 
-	> Get-Alias -Definition Get-Member # -->> `gm` 
+	* `Get-Member`
+ 		* "gets properties & methods" of the PS Objects 
+	* `Get-Alias -Definition Get-Member` 
+ 		* returns `gm` 
 	
-	> Get-Service | Where-Object -Property Status -Eq "Stopped" | Get-Member 
-	# looking at its help, and that for add-member, led nowhere 
+	* `Get-Service | Where-Object -Property Status -Eq "Stopped" | Get-Member` 
 
-	> Get-Service -Name AppVClient | Get-Member # just pick an example service-name 
-	> Get-Service -Name p2p* | Where-Object -Property Status -Eq "Stopped" | Start-Service -WhatIf
-	# would start a few services 
+	* `Get-Service -Name AppVClient | Get-Member`
+ 		* just pick an example service-name, here "AppVClient" 
+	* `Get-Service -Name p2p* | Where-Object -Property Status -Eq "Stopped" | Start-Service -WhatIf`
+		* would start a few services 
 
-	> Get-Service | Select-Object Name,MachineName,Status | Get-Member 
-	# the Select-Object filters out all but the specified properties, returning a long list of services;
-	# then, the Get-Member sees only those properties, so only those can appear in the output of Get-Member 
+	* `Get-Service | Select-Object Name,MachineName,Status | Get-Member` 
+		* the `Select-Object` filters out all but the specified properties, returning a long list of services;
+		* then, the Get-Member sees only those properties, so only those can appear in the output of Get-Member 
 	
-	> Get-Service | Where-Object -Property Status -Eq "Stopped" | Sort-Object -Property Name
-	# add "| Sort-Object -Property Name" -->> 165 of them 
+	* `Get-Service | Where-Object -Property Status -Eq "Stopped" | Sort-Object -Property Name`
+		* add: `| Sort-Object -Property Name` reveals that there are 165 of them 
 
 
-	######################################################################################
+	----------------------------------------------------------------------------------
+
 	# USING PS to gather info : Hardware, esp. Memory
 
 	# e.g., to find commands about the fire-wall:
